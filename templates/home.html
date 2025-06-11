@@ -53,17 +53,32 @@
             justify-content: center;
         }
 
+        /* 1. Let the container define the “frame” */
         .cam1_container,
         .cam2_container {
             width: 40rem;
             height: 25rem;
-            border: 2px solid #00c6ff;
-            border-radius: 20px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
-            transition: transform 0.3s ease;
+            position: relative;
+            /* so child absolute positioning is relative to it */
+            overflow: hidden;
+            /* hide any overflow if using object-fit: cover */
         }
+
+        /* 2. Make the image fill that frame, preserving aspect ratio */
+        #captured-img,
+        #detected-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* “contain” fits the whole image inside; 
+                            use “cover” to fill and crop excess */
+            border-radius: 12px;
+            border: 2px solid #00c6ff;
+        }
+
 
         .LiveVideo {
             width: 68rem;
@@ -93,16 +108,6 @@
             text-align: center;
             color: #00c6ff;
         }
-
-        .cam1image,
-        .cam2image {
-            width: 100%;
-            height: 22.5rem;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 2px solid #00c6ff;
-        }
-
         /* Layout for Buttons, Capture and Error */
         .main-actions {
             display: flex;
@@ -451,7 +456,7 @@
             });
     }
 </script>
-  
+
 
 
 </html>
