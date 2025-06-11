@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Streaming and Capture</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        img {
+            margin: 10px;
+            border: 2px solid #333;
+            width: 500px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Live Camera Feed</h1>
+    <img src="{{ url_for('video_feed') }}" id="live-stream">
+
+    <br><br>
+    <button onclick="captureImage()">Capture Image</button>
+
+    <h2>Captured Image</h2>
+    <img id="captured-img" src="" alt="Captured Image">
+
+    <h2>Detected Image (Grayscale)</h2>
+    <img id="detected-img" src="" alt="Detected Image">
+
+    <script>
+        function captureImage() {
+            fetch('/capture', {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.captured_image && data.detected_image) {
+                        document.getElementById('captured-img').src = data.captured_image + '?t=' + new Date().getTime();
+                        document.getElementById('detected-img').src = data.detected_image + '?t=' + new Date().getTime();
+                    } else {
+                        alert('Capture failed!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
