@@ -29,8 +29,8 @@ def camera_grabber():
     global global_frame
     try:
         cam = neoapi.Cam()
-        cam.Connect('700009456923')
-        cam.f.ExposureTime.Set(10000)
+        cam.Connect('700009367129')
+        cam.f.ExposureTime.Set(400)
     except Exception as e:
         print(f"Error connecting to Baumer camera in grabber: {e}")
         return
@@ -120,7 +120,10 @@ def capture_image():
 
     # Save detected image
     det_path = os.path.join(detected_dir, 'detected.jpg')
-    cv2.imwrite(det_path, out_img)
+    new_width = int(out_img.shape[1] * 0.1)
+    new_height = int(out_img.shape[0] * 0.1)
+    resized_op_img=cv2.resize(out_img,(new_width,new_height))
+    cv2.imwrite(det_path, resized_op_img)
 
     return jsonify({
         'captured_image': '/static/capturedImage/captured.jpg',
