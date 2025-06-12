@@ -39,11 +39,14 @@ def material_defect(image_path):
             has_defect = True
             defect_name = "Material Defect Detected"
             cv2.drawContours(roi, [cnt], -1, (0, 0, 255), 2)
-            cv2.putText(roi,'Nok', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-
-    if not has_defect:
-        defect_name = "Ok"
+            # cv2.putText(roi,'Nok', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    if has_defect:
+        cv2.putText(roi,'Nok', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    else:
         cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    # if not has_defect:
+    #     defect_name = "Ok"
+    #     cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     return roi, defect_name
 

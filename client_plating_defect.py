@@ -24,6 +24,7 @@ def plating_defect(image_path):
 
     contours,_ = cv2.findContours(trimmed_edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     has_defect = False
+    defect_name='Ok'
     for i, cnt in enumerate(contours):
         hull = cv2.convexHull(cnt)
         hull_area = cv2.contourArea(hull)
@@ -34,14 +35,21 @@ def plating_defect(image_path):
             has_defect = True
             defect_name = "Plating Defect Detected"
             cv2.drawContours(roi, [cnt], -1, (0, 0, 255), 2)
-            cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            if not has_defect:
-                defect_name = "Ok"
-                cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            # cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            # if not has_defect:
+            #     print('No defect detected')
+            #     defect_name = "Ok"
+            #     cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    if has_defect:
+        cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    else:
+        cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     return roi, defect_name
+    # return roi 
 
-# roi, defect_name = plating_defect(r"D:\rahul_jadhav\OneDrive - Percepta Innovations\Projects\TIM\Dataset\9_06_25\big_curve_light\plating_defect\VCXU.2-201C.R\image0000377.bmp")
+# roi, defect_name = plating_defect(r"static\capturedImage\captured.jpg")
+# # roi = plating_defect(r"static\capturedImage\captured.jpg")
 # print(f"Defect Name: {defect_name}")
 # new_width = int(roi.shape[1] * 0.5)
 # new_height = int(roi.shape[0] * 0.5)

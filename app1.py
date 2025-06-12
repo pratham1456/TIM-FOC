@@ -120,8 +120,8 @@ def capture_image():
 
     # Save detected image
     det_path = os.path.join(detected_dir, 'detected.jpg')
-    new_width = int(out_img.shape[1] * 0.1)
-    new_height = int(out_img.shape[0] * 0.1)
+    new_width = int(out_img.shape[1] * 0.7)
+    new_height = int(out_img.shape[0] * 0.7)
     resized_op_img=cv2.resize(out_img,(new_width,new_height))
     cv2.imwrite(det_path, resized_op_img)
 

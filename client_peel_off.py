@@ -19,7 +19,7 @@ def peel_off(image_path):
     edges=imutils.auto_canny(averaging)
     # cv2.imshow('Edges', cv2.resize(edges, (new_width, new_height)))
 
-    border_margin = 20
+    border_margin = 30
     height,width= edges.shape
     safe_mask=np.zeros_like(edges, dtype=np.uint8)
     cv2.rectangle(safe_mask, (border_margin, border_margin), (width - border_margin, height - border_margin), 255, -1)

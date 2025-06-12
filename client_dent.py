@@ -23,7 +23,8 @@ def dent(image_path):
     trimmed_edges = cv2.bitwise_and(edges, safe_mask)           
 
     contours, _ = cv2.findContours(trimmed_edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+    has_dent=False
+    defect_name="Ok"
     for i,cnt in enumerate(contours):
         hull = cv2.convexHull(cnt)
         hull_area = cv2.contourArea(hull)
@@ -34,11 +35,14 @@ def dent(image_path):
             has_dent = True
             defect_name = "Dent Detected"
             cv2.drawContours(roi, [cnt], -1, (0, 0, 255), 2)
-            cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            if not has_dent:
-                defect_name = "Ok"
-                cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        
+            # cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            # if not has_dent:
+            #     defect_name = "Ok"
+            #     cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    if has_dent:
+        cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    else:
+        cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             # defect_name = "Ok"
             # cv2.putText(roi, defect_name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
