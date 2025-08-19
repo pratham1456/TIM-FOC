@@ -1,458 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FJP</title>
-    <link href="" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+      body {
+        margin: 0;
+        font-family: "Orbitron", sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
+      .Heading h1 {
+        font-size: 2.5rem;
+        margin: 40px 0 20px;
+        padding: 20px;
+        text-transform: uppercase;
+        animation: fadeInZoom 2s ease-out forwards;
+        letter-spacing: 8px;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        border-radius: 1.5rem;
+        /* -webkit-text-fill-color: transparent; */
+      }
+
+      @keyframes fadeInZoom {
+        0% {
+          opacity: 0;
+          transform: scale(0.4);
         }
 
-        .Heading h1 {
-            font-size: 2.5rem;
-            margin: 40px 0 20px;
-            padding: 20px;
-            text-transform: uppercase;
-            animation: fadeInZoom 2s ease-out forwards;
-            letter-spacing: 8px;
-            background: linear-gradient(90deg, #00c6ff, #0072ff);
-            border-radius: 1.5rem;
-            /* -webkit-text-fill-color: transparent; */
+        100% {
+          opacity: 1;
+          transform: scale(1);
         }
+      }
 
-        @keyframes fadeInZoom {
-            0% {
-                opacity: 0;
-                transform: scale(0.4);
-            }
+      .cam_container {
+        display: flex;
+        flex-direction: row;
+        gap: 10rem;
+        margin-top: 30px;
+        flex-wrap: nowrap;
+        justify-content: center;
+      }
 
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+      .cam1_container,
+      .cam2_container {
+        width: 30rem;
+        height: 25rem 400px;
+        border: 2px solid #00c6ff;
+        border-radius: 20px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+        transition: transform 0.3s ease;
+      }
 
-        .cam_container {
-            display: flex;
-            flex-direction: row;
-            gap: 10rem;
-            margin-top: 30px;
-            flex-wrap: nowrap;
-            justify-content: center;
-        }
+      .LiveVideo {
+        width: 68rem;
+        margin-top: 2rem;
+        height: 38rem;
+        border: 2px solid #00c6ff;
+        border-radius: 20px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+        transition: transform 0.3s ease;
+      }
 
-        .cam1_container,
-        .cam2_container {
-            width: 30rem;
-            height: 25rem 400px;
-            border: 2px solid #00c6ff;
-            border-radius: 20px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
-            transition: transform 0.3s ease;
-        }
+      .cam1_container:hover,
+      .cam2_container:hover {
+        transform: scale(1.05);
+      }
 
-        .LiveVideo {
-            width: 68rem;
-            margin-top: 2rem;
-            height: 38rem;
-            border: 2px solid #00c6ff;
-            border-radius: 20px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
-            transition: transform 0.3s ease;
-        }
+      .LiveVideo:hover {
+        transform: scale(1.05);
+      }
 
-        .cam1_container:hover,
-        .cam2_container:hover {
-            transform: scale(1.05);
-        }
+      .cam {
+        display: block;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #00c6ff;
+      }
 
-        .LiveVideo:hover {
-            transform: scale(1.05);
-        }
+      .cam1image,
+      .cam2image {
+        width: 100%;
+        height: 22.5rem;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 2px solid #00c6ff;
+      }
 
-        .cam {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            text-align: center;
-            color: #00c6ff;
-        }
+      /* Layout for Buttons, Capture and Error */
+      .main-actions {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 40px;
+        margin-bottom: 1.5rem;
+        padding: 0 50px;
+      }
 
-        .cam1image,
-        .cam2image {
-            width: 100%;
-            height: 22.5rem;
-            object-fit: contain;
-            border-radius: 12px;
-            border: 2px solid #00c6ff;
-        }
+      /* Left Side Buttons */
+      .ButtonClicks {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        /* width: 100%; */
+      }
 
-        /* Layout for Buttons, Capture and Error */
-        .main-actions {
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 40px;
-            margin-bottom: 1.5rem;
-            padding: 0 50px;
-        }
+      .ButtonRow {
+        display: flex;
+        gap: 10px;
+      }
 
-        /* Left Side Buttons */
-        .ButtonClicks {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            /* width: 100%; */
-        }
+      button {
+        width: 5rem;
+        height: 5rem;
+      }
 
-        .ButtonRow {
-            display: flex;
-            gap: 10px;
-        }
+      .Button {
+        background: #00c6ff;
+        color: #fff;
+        border: none;
+        padding: 12px 18px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
+        min-width: 60px;
+      }
 
-        button {
-            width: 5rem;
-            height: 5rem;
-        }
+      .Button:hover {
+        background: #0072ff;
+        transform: scale(1.1);
+      }
 
-        .Button {
-            background: #00c6ff;
-            color: #fff;
-            border: none;
-            padding: 12px 18px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
-            min-width: 60px;
-        }
+      /* Middle Capture Button */
+      .capturedImage .Button {
+        padding: 14px 28px;
+        font-size: 1.2rem;
+        width: 100%;
+      }
 
-        .Button:hover {
-            background: #0072ff;
-            transform: scale(1.1);
-        }
+      /* Right Side Error */
+      .ErrorMessage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        /* Middle Capture Button */
-        .capturedImage .Button {
-            padding: 14px 28px;
-            font-size: 1.2rem;
-            width: 100%;
-        }
+      .error {
+        padding: 12px 16px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 2px solid white;
+        width: 280px;
+        box-shadow: 0 0 10px rgba(255, 78, 78, 0.3);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        height: 10rem;
+      }
 
-        /* Right Side Error */
-        .ErrorMessage {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      .error::placeholder {
+        color: white;
+      }
 
-        .error {
-            padding: 12px 16px;
-            font-size: 1rem;
-            border-radius: 8px;
-            border: 2px solid white;
-            width: 280px;
-            box-shadow: 0 0 10px rgba(255, 78, 78, 0.3);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            outline: none;
-            height: 10rem;
-        }
+      .video {
+        height: 35rem;
+        width: 68rem;
+      }
 
-        .error::placeholder {
-            color: white;
-        }
+      .controls {
+        margin-top: 2.5rem;
+        margin-bottom: 2rem;
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content: center;
+        column-gap: 1rem;
+      }
 
-        .video {
-            height: 35rem;
-            width: 68rem;
-        }
+      .LiveControls {
+        margin-top: 5rem;
+      }
 
-        .controls {
-            margin-top: 2.5rem;
-            margin-bottom: 2rem;
-            display: flex;
-            /* flex-direction: column; */
-            align-items: center;
-            justify-content: center;
-            column-gap: 1rem;
-        }
+      .Button.selected {
+        background-color: #4caf50;
+        /* Green background */
+        color: white;
+        /* White text */
+        border: 2px solid black;
+      }
 
-        .LiveControls {
-            margin-top: 5rem;
-        }
+      .SetFocus {
+        height: 3rem;
+        width: 20rem;
+      }
 
-        .Button.selected {
-            background-color: #4CAF50;
-            /* Green background */
-            color: white;
-            /* White text */
-            border: 2px solid black;
-        }
+      input#focus {
+        height: 2rem;
+        font-size: 16px;
+      }
 
-        .SetFocus {
-            height: 3rem;
-            width: 20rem;
-        }
+      .ErrorMessage {
+        align-items: center;
+        display: flex;
+        flex-direction: row-reverse;
+        column-gap: 1rem;
+      }
 
-        input#focus {
-            height: 2rem;
-            font-size: 16px;
-        }
+      .get-exposure,
+      .get-gain {
+        align-items: center;
+        display: flex;
+        flex-direction: row-reverse;
+        column-gap: 1rem;
+      }
 
-        .ErrorMessage {
-            align-items: center;
-            display: flex;
-            flex-direction: row-reverse;
-            column-gap: 1rem;
-        }
+      .exposure,
+      .gain {
+        padding: 12px 16px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 0px solid white;
+        width: 10rem;
+        box-shadow: 0 0 10px rgba(255, 78, 78, 0.3);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: none;
+        height: 1rem;
+      }
 
-
-        .get-exposure,
-        .get-gain {
-            align-items: center;
-            display: flex;
-            flex-direction: row-reverse;
-            column-gap: 1rem;
-        }
-
-        .exposure,
-        .gain {
-            padding: 12px 16px;
-            font-size: 1rem;
-            border-radius: 8px;
-            border: 0px solid white;
-            width: 10rem;
-            box-shadow: 0 0 10px rgba(255, 78, 78, 0.3);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            outline: none;
-            height: 1rem;
-        }
-
-        .set-exposure,
-        .set-gain {
-            background: #00c6ff;
-            color: #fff;
-            border: none;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
-            width: 10rem;
-            height: 3rem;
-        }
+      .set-exposure,
+      .set-gain {
+        background: #00c6ff;
+        color: #fff;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
+        width: 10rem;
+        height: 3rem;
+      }
     </style>
+  </head>
 
-
-</head>
-
-<body>
-
+  <body>
     <div class="Heading">
-
-        <h1>Tube Inspection Machine</h1>
-
+      <h1>Tube Inspection Machine</h1>
     </div>
 
     <div class="cam_container">
-        <div class="cam1_container">
-            <label class="cam" for="cam1">Captured Image</label>
-            <img class="cam1image" id="captured-img" src="static\capturedImage\captured.jpg" alt="Captured Image">
-        </div>
+      <div class="cam1_container">
+        <label class="cam" for="cam1">Captured Image</label>
+        <img
+          class="cam1image"
+          id="captured-img"
+          src="static\capturedImage\captured.jpg"
+          alt="Captured Image"
+        />
+      </div>
 
-        <div class="cam2_container">
-            <label class="cam" for="cam2">Detected Image</label>
-            <img class="cam2image" id="detected-img" src="static\capturedImage\detected.jpg" alt="Detected Image">
-        </div>
+      <div class="cam2_container">
+        <label class="cam" for="cam2">Detected Image</label>
+        <img
+          class="cam2image"
+          id="detected-img"
+          src="static\capturedImage\detected.jpg"
+          alt="Detected Image"
+        />
+      </div>
     </div>
 
     <div class="main-actions">
-
-        <!-- Left Side Buttons -->
-        <div class="ButtonClicks">
-            <div class="ButtonRow">
-                <button class="Button" id="Button1">Det-1</button>
-                <button class="Button" id="Button2">Det-2</button>
-                <button class="Button" id="Button3">Det-3</button>
-                <button class="Button" id="Button4">Det-4</button>
-                <button class="Button" id="Button5">Det-5</button>
-            </div>
-            <div class="ButtonRow">
-                <button class="Button" id="Button6">Det-6</button>
-                <button class="Button" id="Button7">Det-7</button>
-                <button class="Button" id="Button8">Det-8</button>
-                <button class="Button" id="Button9">Det-9</button>
-                <button class="Button" id="Button10">Det-10</button>
-            </div>
-            <div class="ButtonRow">
-                <button class="Button" id="Button11">Det-11</button>
-                <button class="Button" id="Button12">Det-12</button>
-                <button class="Button" id="Button13">Det-13</button>
-                <button class="Button" id="Button14">Det-14</button>
-                <button class="Button" id="Button15">Det-15</button>
-
-            </div>
-
-            <div class="ButtonRow">
-                <button class="Button" id="Button16">Det-16</button>
-                <button class="Button" id="Button17">Det-17</button>
-                <button class="Button" id="Button18">Det-18</button>
-                <button class="Button" id="Button19">Det-19</button>
-                <button class="Button" id="Button20">Det-20</button>
-
-            </div>
-
-
-            <div class="ButtonRow">
-                <button class="Button" id="Button21">Det-21</button>
-                <button class="Button" id="Button22">Det-22</button>
-                <button class="Button" id="Button23">Det-23</button>
-                <button class="Button" id="Button24">Det-24</button>
-                <button class="Button" id="Button25">Det-25</button>
-
-            </div>
-
-
-            <div class="ButtonRow">
-                <button class="Button" id="Button26">Det-26</button>
-                <button class="Button" id="Button27">Det-27</button>
-                <button class="Button" id="Button28">Det-28</button>
-                <button class="Button" id="Button29">Det-29</button>
-                <button class="Button" id="Button30">Det-30</button>
-
-            </div>
+      <!-- Left Side Buttons -->
+      <div class="ButtonClicks">
+        <div class="ButtonRow">
+          <button class="Button" id="Button1">Det-1</button>
+          <button class="Button" id="Button2">Det-2</button>
+          <button class="Button" id="Button3">Det-3</button>
+          <button class="Button" id="Button4">Det-4</button>
+          <button class="Button" id="Button5">Det-5</button>
+        </div>
+        <div class="ButtonRow">
+          <button class="Button" id="Button6">Det-6</button>
+          <button class="Button" id="Button7">Det-7</button>
+          <button class="Button" id="Button8">Det-8</button>
+          <button class="Button" id="Button9">Det-9</button>
+          <button class="Button" id="Button10">Det-10</button>
+        </div>
+        <div class="ButtonRow">
+          <button class="Button" id="Button11">Det-11</button>
+          <button class="Button" id="Button12">Det-12</button>
+          <button class="Button" id="Button13">Det-13</button>
+          <button class="Button" id="Button14">Det-14</button>
+          <button class="Button" id="Button15">Det-15</button>
         </div>
 
-        <!-- Middle Capture Button -->
-        <div class="capturedImage">
-            <button class="Button" id="capture" onclick="captureImage()">Capture</button>
+        <div class="ButtonRow">
+          <button class="Button" id="Button16">Det-16</button>
+          <button class="Button" id="Button17">Det-17</button>
+          <button class="Button" id="Button18">Det-18</button>
+          <button class="Button" id="Button19">Det-19</button>
+          <button class="Button" id="Button20">Det-20</button>
         </div>
 
-
-        <!-- Right Side Error -->
-        <div class="ErrorMessage">
-            <input type="text" id="error" class="error">
+        <div class="ButtonRow">
+          <button class="Button" id="Button21">Det-21</button>
+          <button class="Button" id="Button22">Det-22</button>
+          <button class="Button" id="Button23">Det-23</button>
+          <button class="Button" id="Button24">Det-24</button>
+          <button class="Button" id="Button25">Det-25</button>
         </div>
 
+        <div class="ButtonRow">
+          <button class="Button" id="Button26">Det-26</button>
+          <button class="Button" id="Button27">Det-27</button>
+          <button class="Button" id="Button28">Det-28</button>
+          <button class="Button" id="Button29">Det-29</button>
+          <button class="Button" id="Button30">Det-30</button>
+        </div>
+      </div>
 
+      <!-- Middle Capture Button -->
+      <div class="capturedImage">
+        <button class="Button" id="capture" onclick="captureImage()">
+          Capture
+        </button>
+      </div>
 
-
-
-
+      <!-- Right Side Error -->
+      <div class="ErrorMessage">
+        <input type="text" id="error" class="error" />
+      </div>
     </div>
 
     <div class="LiveControls">
+      <h1>Live Video Stream</h1>
 
-        <h1>Live Video Stream</h1>
+      <div class="LiveVideo">
+        <h3 style="margin-bottom: 1rem">Camera 1</h3>
+        <img
+          class="video"
+          src="{{ url_for('video_feed_cam1') }}"
+          id="live-stream-1"
+        />
 
+        <h3 style="margin-top: 2rem; margin-bottom: 1rem">Camera 2</h3>
+        <img
+          class="video"
+          src="{{ url_for('video_feed_cam2') }}"
+          id="live-stream-2"
+        />
+      </div>
 
-        <div class="LiveVideo">
-
-
-            <img class="video" src="{{ url_for('video_feed') }}" id="live-stream">
+      <div class="controls">
+        <div class="get-exposure">
+          <input id="exposure-value" class="exposure" />
+          <button id="set-exposure" class="set-exposure">Set Exposure</button>
         </div>
 
-
-        <div class="controls">
-
-            <div class="get-exposure">
-                <input id="exposure-value" class="exposure">
-                <button id="set-exposure" class="set-exposure">Set Exposure</button>
-            </div>
-
-            <div class="get-gain">
-                <input type="text" class="gain">
-                <button class="set-gain">Set Gain</button>
-            </div>
-
+        <div class="get-gain">
+          <input type="text" class="gain" />
+          <button class="set-gain">Set Gain</button>
         </div>
-
-
+      </div>
     </div>
+  </body>
 
-
-
-</body>
-
-
-<script>
+  <script>
     // track which Det-button is selected
     let selectedButton = null;
 
-    window.addEventListener('DOMContentLoaded', () => {
-        // 1️⃣ Wire up Det-buttons
-        document.querySelectorAll('.ButtonClicks .Button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (selectedButton) {
-                    selectedButton.classList.remove('selected');
-                }
-                btn.classList.add('selected');
-                selectedButton = btn;
-            });
+    window.addEventListener("DOMContentLoaded", () => {
+      // 1️⃣ Wire up Det-buttons
+      document.querySelectorAll(".ButtonClicks .Button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (selectedButton) {
+            selectedButton.classList.remove("selected");
+          }
+          btn.classList.add("selected");
+          selectedButton = btn;
         });
+      });
 
-        // 2️⃣ Wire up Capture (remove your inline onclick)
-        document.getElementById('capture').addEventListener('click', captureImage);
+      // 2️⃣ Wire up Capture (remove your inline onclick)
+      document
+        .getElementById("capture")
+        .addEventListener("click", captureImage);
     });
 
     function captureImage() {
-        if (!selectedButton) {
-            alert('Please select a detection button first!');
+      if (!selectedButton) {
+        alert("Please select a detection button first!");
+        return;
+      }
+
+      // extract the numeric ID, e.g. "Det-1" → 1
+      const buttonIndex = parseInt(selectedButton.innerText.split("-")[1], 10);
+
+      fetch("/capture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ button: buttonIndex }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const errField = document.getElementById("error");
+          if (data.error) {
+            errField.value = data.error;
             return;
-        }
-
-        // extract the numeric ID, e.g. "Det-1" → 1
-        const buttonIndex = parseInt(selectedButton.innerText.split('-')[1], 10);
-
-        fetch('/capture', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ button: buttonIndex })
+          }
+          // bust the cache so browser always reloads new image
+          const t = Date.now();
+          document.getElementById("captured-img").src =
+            data.captured_image + "?t=" + t;
+          document.getElementById("detected-img").src =
+            data.detected_image + "?t=" + t;
+          errField.value = data.message || "";
         })
-            .then(res => res.json())
-            .then(data => {
-                const errField = document.getElementById('error');
-                if (data.error) {
-                    errField.value = data.error;
-                    return;
-                }
-                // bust the cache so browser always reloads new image
-                const t = Date.now();
-                document.getElementById('captured-img').src = data.captured_image + '?t=' + t;
-                document.getElementById('detected-img').src = data.detected_image + '?t=' + t;
-                errField.value = data.message || '';
-            })
-            .catch(err => {
-                document.getElementById('error').value = 'Capture failed';
-                console.error(err);
-            });
+        .catch((err) => {
+          document.getElementById("error").value = "Capture failed";
+          console.error(err);
+        });
     }
-</script>
-
-
-
+  </script>
 </html>
